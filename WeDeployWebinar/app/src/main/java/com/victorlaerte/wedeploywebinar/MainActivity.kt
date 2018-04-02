@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 
@@ -16,21 +18,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        val recyclerView = findViewById<RecyclerView>(R.id.list_item_recycler_view)
+
         fab.setOnClickListener { view ->
             val intent = Intent(this, AddItemActivity::class.java)
             startActivity(intent)
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
+    fun refreshRecyclerView(recyclerView: RecyclerView, items: List<Item>) {
+        if (recyclerView.adapter == null) {
+            val linearLayoutManager = LinearLayoutManager(this)
+            linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+            recyclerView.layoutManager = linearLayoutManager
+            recyclerView.adapter = ItemAdapter(items)
+
+        } else {
+            (recyclerView.adapter as ItemAdapter).items = items
+            recyclerView.adapter.notifyDataSetChanged()
         }
     }
 
