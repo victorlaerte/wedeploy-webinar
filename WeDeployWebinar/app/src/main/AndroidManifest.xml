@@ -21,6 +21,11 @@
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
+
+		<activity
+			android:name=".AddItemActivity"
+			android:windowSoftInputMode="adjustResize" />
+
 	</application>
 
 </manifest>
