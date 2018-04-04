@@ -12,13 +12,24 @@ import android.widget.TextView
 class ItemAdapter(var items: List<Item>) : RecyclerView.Adapter<ItemAdapter.ItemHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        return ItemHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_layout, parent, false))
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout, parent, false)
+
+        return ItemHolder(view)
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.name.text = items[position].name
-        holder.description.text = items[position].description
+        val currentItem = items[position]
+        holder.name.text = currentItem.name
+        holder.description.text = currentItem.description
+
+//        holder.itemView.setOnClickListener {
+//
+//        }
+//
+//        holder.itemView.setOnLongClickListener {
+//
+//        }
     }
 
     override fun getItemCount(): Int {

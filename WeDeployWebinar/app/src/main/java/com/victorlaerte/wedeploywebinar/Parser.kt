@@ -9,9 +9,14 @@ import org.json.JSONArray
 class Parser {
 
     companion object {
-        fun parse(body: String): List<Item> {
+        fun parseBody(body: String): List<Item> {
 
             val jsonArray = JSONArray(body)
+            return parseJSONArray(jsonArray)
+        }
+
+        fun parseJSONArray(
+            jsonArray: JSONArray): MutableList<Item> {
             val items = mutableListOf<Item>()
 
             for (index in 0 until jsonArray.length()) {
