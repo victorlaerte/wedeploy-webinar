@@ -3,10 +3,15 @@ package com.victorlaerte.wedeploywebinar
 import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.wedeploy.android.Callback
+import com.wedeploy.android.WeDeploy
+import com.wedeploy.android.transport.Response
+import java.lang.Exception
 
 /**
  * @author Victor Oliveira
@@ -43,8 +48,29 @@ class ItemAdapter(var items: List<Item>) : RecyclerView.Adapter<ItemAdapter.Item
                 .setMessage("Do you really want to remove this item?")
                 .setPositiveButton("YES", { dialog, which ->
 
+                    val weDeploy = WeDeploy.Builder().build()
+
+                    weDeploy.data(MainActivity.URL)
+                        .delete("items/${currentItem.id}")
+                        .execute(object: Callback {
+
+                            override fun onSuccess(response: Response?) {
+                                response?.let {
+                                    Log.d("teste", "${it.statusCode} ${it.statusMessage} ${it.body}")
+
+                                }
+                            }
+
+                            override fun onFailure(e: Exception?) {
+                                e?.let {
+                                    Log.d("teste", e.message)
+                                }
+                            }
+                        })
+
+
                 })
-                .setNegativeButton("NO", { dialog, which ->  })
+                .setNegativeButton("NO", { _, _ ->  })
 
                 .show()
 

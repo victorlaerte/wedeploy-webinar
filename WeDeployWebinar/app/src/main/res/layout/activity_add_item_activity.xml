@@ -35,7 +35,7 @@
 		android:id="@+id/addButton"
 		android:layout_height="50dp"
 		android:layout_width="match_parent"
-		android:text="Add"
+		android:text="Save"
 		>
 
 	</Button>
