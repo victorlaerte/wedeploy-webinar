@@ -1,5 +1,7 @@
 package com.victorlaerte.wedeploywebinar
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -23,13 +25,31 @@ class ItemAdapter(var items: List<Item>) : RecyclerView.Adapter<ItemAdapter.Item
         holder.name.text = currentItem.name
         holder.description.text = currentItem.description
 
-//        holder.itemView.setOnClickListener {
-//
-//        }
-//
-//        holder.itemView.setOnLongClickListener {
-//
-//        }
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+
+            val intent = Intent(context, AddItemActivity::class.java).apply {
+                putExtra("item", currentItem)
+            }
+
+            context.startActivity(intent)
+        }
+
+        holder.itemView.setOnLongClickListener {
+            val context = holder.itemView.context
+
+            AlertDialog.Builder(context)
+                .setTitle("Question")
+                .setMessage("Do you really want to remove this item?")
+                .setPositiveButton("YES", { dialog, which ->
+
+                })
+                .setNegativeButton("NO", { dialog, which ->  })
+
+                .show()
+
+            true
+        }
     }
 
     override fun getItemCount(): Int {

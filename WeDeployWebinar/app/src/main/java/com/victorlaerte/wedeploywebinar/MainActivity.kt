@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         realTime?.close()
     }
+
     fun refreshRecyclerView(recyclerView: RecyclerView, items: List<Item>) {
         if (recyclerView.adapter == null) {
             val linearLayoutManager = LinearLayoutManager(this)
