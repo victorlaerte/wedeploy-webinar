@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import com.wedeploy.android.Callback
 import com.wedeploy.android.RealTime
 import com.wedeploy.android.WeDeploy
+import com.wedeploy.android.query.SortOrder
 import com.wedeploy.android.transport.Response
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         weDeploy.data(URL)
+            .orderBy("name", SortOrder.ASCENDING)
             .get("items")
             .execute(object: Callback {
                 override fun onSuccess(response: Response?) {
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             })
 
         realTime = weDeploy.data(URL)
+            .orderBy("name", SortOrder.ASCENDING)
             .watch("items")
             .on("changes", { args ->
                 args.forEach {
